@@ -4,8 +4,33 @@ import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import shareVideo from "../assets/share.mp4";
 import logo from "../assets/logowhite.png";
+import jwt_decode from "jwt-decode";
+import { client } from "../client";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const responseGoogle = (response) => {
+    const decoded = jwt_decode(response.credential);
+
+    const { name, sub, picture } = decoded;
+
+    const doc = {
+      _id: sub,
+      _type: "user",
+      userName: name,
+      image: picture,
+    };
+
+    const query = `*[_id == "${sub}"]`;
+    client.fetch(query).then((docs) => {
+      if (docs.length === 0) {
+        client.createOrReplace(doc).then(() => {
+          navigate("/", { replace: true });
+        });
+      }
+    });
+  };
+
   return (
     <div className="flex justify-start items-center flex-col h-screen">
       <div className="relative w-full h-full">
@@ -24,7 +49,7 @@ const Login = () => {
           <img src={logo} width="130px" alt="logo" />
         </div>
         <div className="shadow-2xl">
-          <GoogleLogin clie onSuccess={() => console.log("yess")} />
+          <GoogleLogin onSuccess={responseGoogle} />
         </div>
       </div>
     </div>
