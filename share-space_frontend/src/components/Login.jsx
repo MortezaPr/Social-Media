@@ -1,7 +1,6 @@
 import React from "react";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
 import shareVideo from "../assets/share.mp4";
 import logo from "../assets/logowhite.png";
 import jwt_decode from "jwt-decode";
@@ -21,13 +20,13 @@ const Login = () => {
       image: picture,
     };
 
+    localStorage.setItem("user", JSON.stringify(doc));
+
     const query = `*[_id == "${sub}"]`;
-    client.fetch(query).then((docs) => {
-      if (docs.length === 0) {
-        client.createOrReplace(doc).then(() => {
-          navigate("/", { replace: true });
-        });
-      }
+    client.fetch(query).then(() => {
+      client.createOrReplace(doc).then(() => {
+        navigate("/", { replace: true });
+      });
     });
   };
 
