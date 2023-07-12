@@ -95,6 +95,9 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
               {destination && (
                 <a
                   href={destination}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
                   target="_blank"
                   className="bg-white flex items-center gap-2 text-black font-bold p-2 pl-4 pr-4 rounded-full opacity-70 hover:opacity-100 hover:shadow-md"
                   rel="noreferrer"
