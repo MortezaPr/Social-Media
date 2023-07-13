@@ -108,7 +108,7 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
                     : destination.slice(8)}
                 </a>
               )}
-              {postedBy?._id === user._id && (
+              {postedBy?._id === user?._id && (
                 <button
                   type="button"
                   onClick={(e) => {
