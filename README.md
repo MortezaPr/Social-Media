@@ -2,8 +2,6 @@
 
 ![overview](./Image/Home.png)
 
-- https://shareme-mortezapr.netlify.app
-
 ## Description
 
 ShareMe is a social media platform that empowers users to share and connect globally. It's built using modern technologies - the frontend is powered by ReactJS and Tailwind CSS, while the backend is driven by Sanity.io.
